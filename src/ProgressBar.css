@@ -1,22 +1,13 @@
-div.container {
-  display: flex;
-  align-items: center;
-  transform: translateX(-16vw);
+.ProgressBarContainer {
+  width: 80%;
+  height: 45px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 5vw;
 }
 
-.bar-bg {
-  position: absolute;
-  width: 30vw;
-  height: 5vw;
-  background: rgb(239, 239, 239);
-  border-radius: 2vw;
-  border: 0.5vw solid rgb(0, 120, 212);
-}
-
-.bar-fg {
-  position: absolute;
-  width: 10vw;
-  height: 5vw;
-  background: rgb(0, 120, 212);
-  border-radius: 2vw;
+.ProgressBar {
+  max-width: 100%;
+  border-radius: inherit;
+  height: 100%;
+  background: dodgerblue;
 }

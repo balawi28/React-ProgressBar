@@ -1,39 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProgressBar.css';
-import { useEffect } from 'react';
 
-function ProgressBar() {
-  const [progress, setProgress] = useState(3);
+let interval = undefined;
+
+export default function ProgressBar() {
   const [running, setRunning] = useState(true);
-  let interval;
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (running) {
       interval = setInterval(() => {
-        setProgress((progress) => progress + 1);
-      }, 50);
+        setProgress((prev) => prev + 1);
+      }, RnadInt(10, 120));
     } else {
-      return () => clearInterval(interval);
+      clearInterval(interval);
     }
   }, [running]);
 
   useEffect(() => {
-    if (progress > 30) {
+    if (progress >= 100) {
       setRunning(false);
       clearInterval(interval);
     }
-  });
+  }, [progress]);
 
   return (
-    <>
-      <div className='container'>
-        <div className='bar-bg'></div>
-        <div className='bar-fg' style={{ width: progress + 'vw' }}></div>
-      </div>
-      <div>{progress}</div>
-      <div>{running + ''}</div>
-    </>
+    <div className='ProgressBarContainer'>
+      <div className='ProgressBar' style={{ width: progress + '%' }}></div>
+    </div>
   );
 }
 
-export default ProgressBar;
+function RnadInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}

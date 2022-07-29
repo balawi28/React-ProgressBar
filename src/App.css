@@ -1,18 +1,23 @@
 .App {
-  height: 100vh;
-  width: 100vw;
+  padding-top: 20px;
+  height: 100%;
+  width: auto;
   display: flex;
   flex-direction: column;
-  row-gap: 4vw;
+  row-gap: 60px;
   justify-content: center;
   align-items: center;
 }
 
 button {
-  padding: 8px;
+  padding: 10px 20px;
   border-radius: 3vw;
   border-color: rgb(0, 120, 212);
   border-style: solid;
+}
+
+button:hover {
+  background: rgb(204, 204, 204);
 }
 
 .buttons {
@@ -23,4 +28,22 @@ button {
 input {
   font-size: 1.2rem;
   width: 50px;
+}
+
+.bars-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bars-index {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 1.6rem;
 }
