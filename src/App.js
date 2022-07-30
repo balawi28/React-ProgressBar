@@ -1,18 +1,19 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import ProgressBar from './ProgressBar';
 import './App.css';
 
-var barToRemove = 0;
+var idCounter = 0;
 
 export default function App() {
   const [barsArray, setBarsArray] = useState([]);
+  const [input, setInput] = useState('');
 
   function add() {
-    setBarsArray((prev) => [...prev, prev.length]);
+    setBarsArray((prev) => [...prev, <ProgressBar key={idCounter++} />]);
   }
 
   function remove() {
-    setBarsArray((prev) => prev.filter((_, index) => index !== barToRemove));
+    setBarsArray((prev) => prev.filter((bar) => bar.key !== input));
   }
 
   return (
@@ -24,13 +25,17 @@ export default function App() {
         <button className='button-delete' onClick={remove}>
           Delete
         </button>
-        <input type='number' />
+        <input
+          type='number'
+          value={input}
+          onInput={(e) => setInput(e.target.value)}
+        />
       </div>
       <div className='bars-container'>
         {barsArray.map((bar) => (
-          <div className='bars-index'>
-            <ProgressBar />
-            <p>{bar}</p>
+          <div className='bars-index' key={bar.key}>
+            {bar}
+            <p>{bar.key}</p>
           </div>
         ))}
       </div>
