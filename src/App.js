@@ -16,6 +16,10 @@ export default function App() {
     setBarsArray((prev) => prev.filter((bar) => bar.key !== input));
   }
 
+  function reset() {
+    setBarsArray((prev) => prev.filter((bar) => bar.key !== input));
+  }
+
   return (
     <div className='App'>
       <div className='buttons'>
@@ -24,6 +28,9 @@ export default function App() {
         </button>
         <button className='button-delete' onClick={remove}>
           Delete
+        </button>
+        <button className='button-delete' onClick={reset}>
+          Reset
         </button>
         <input
           type='number'

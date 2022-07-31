@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './ProgressBar.css';
 
-let interval = undefined;
-
 export default function ProgressBar() {
   const [running, setRunning] = useState(true);
   const [progress, setProgress] = useState(0);
+
+  let interval;
 
   useEffect(() => {
     if (running) {
       interval = setInterval(() => {
         setProgress((prev) => prev + 1);
       }, RnadInt(10, 120));
-    } else {
-      clearInterval(interval);
     }
-  }, [running]);
+  }, []);
 
   useEffect(() => {
     if (progress >= 100) {
