@@ -9,15 +9,30 @@ export default function App() {
   const [input, setInput] = useState('');
 
   function add() {
-    setBarsArray((prev) => [...prev, <ProgressBar key={idCounter++} />]);
+    setBarsArray((prev) => [...prev, { id: idCounter++, restart: false }]);
   }
 
   function remove() {
-    setBarsArray((prev) => prev.filter((bar) => bar.key !== input));
+    setBarsArray((prev) =>
+      prev.filter((bar) => bar.id.toString() !== input.toString())
+    );
   }
 
-  function reset() {
-    setBarsArray((prev) => prev.filter((bar) => bar.key !== input));
+  async function reset() {
+    await setBarsArray((prev) =>
+      prev.map((bar) => {
+        return bar.id.toString() === input.toString()
+          ? { ...bar, restart: true }
+          : { ...bar };
+      })
+    );
+    await setBarsArray((prev) =>
+      prev.map((bar) => {
+        return bar.id.toString() === input.toString()
+          ? { ...bar, restart: false }
+          : { ...bar };
+      })
+    );
   }
 
   return (
@@ -40,9 +55,9 @@ export default function App() {
       </div>
       <div className='bars-container'>
         {barsArray.map((bar) => (
-          <div className='bars-index' key={bar.key}>
-            {bar}
-            <p>{bar.key}</p>
+          <div className='bars-index' key={bar.id}>
+            <ProgressBar key={bar.id} restart={bar.restart} />
+            <p>{bar.id}</p>
           </div>
         ))}
       </div>

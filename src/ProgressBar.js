@@ -1,31 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './ProgressBar.css';
 
-export default function ProgressBar() {
-  const [running, setRunning] = useState(true);
+export default function ProgressBar(props) {
   const [progress, setProgress] = useState(0);
 
-  let interval;
+  const interval = useRef(null);
 
   useEffect(() => {
-    if (running) {
-      interval = setInterval(() => {
-        setProgress((prev) => prev + 1);
-      }, RnadInt(10, 120));
-    }
+    interval.current = setInterval(() => {
+      setProgress((prev) => prev + 1);
+    }, RnadInt(10, 120));
+
+    return () => clearInterval(interval.current);
   }, []);
 
   useEffect(() => {
-    if (progress >= 100) {
-      setRunning(false);
-      clearInterval(interval);
-    }
-  }, [progress]);
+    if (progress >= 100) clearInterval(interval);
+  }, [interval, progress]);
+
+  useEffect(() => {
+    setProgress(0);
+  }, [props.restart]);
 
   return (
-    <div className='ProgressBarContainer'>
-      <div className='ProgressBar' style={{ width: progress + '%' }}></div>
-    </div>
+    <>
+      <div className='ProgressBarContainer'>
+        <div className='ProgressBar' style={{ width: progress + '%' }}></div>
+      </div>
+    </>
   );
 }
 
